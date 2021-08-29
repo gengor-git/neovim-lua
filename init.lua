@@ -24,6 +24,12 @@ require("paq") ({
     "ryanoasis/vim-devicons",
 
     "kyazdani42/nvim-tree.lua",
+    "kaicataldo/material.vim",
+
+    "ixru/nvim-markdown", -- Markdown mode
+
+    "nvim-lua/plenary.nvim", -- this is required for neogit
+    "TimUntersberger/neogit", -- magit like extension for neovim
   
 })
 
@@ -36,6 +42,7 @@ require("paq") ({
 
 -- colorscheme --------------------------------------------------------
 cmd([[colorscheme tokyonight]]) -- Put your favorite colorscheme here
+--cmd([[colorscheme material]]) -- Put your favorite colorscheme here
 
 -- basics -------------------------------------------------------------
 g.mapleader = " "
@@ -59,6 +66,11 @@ require('lualine').setup({
 map('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap = true})
 map('n', '<leader>r', ':NvimTreeRefresh<CR>', {noremap = true})
 map('n', '<leader>n', ':NvimTreeFindFile<CR>', {noremap = true})
+
+-- Neogit -------------------------------------------------------------
+
+local neogit = require('neogit')
+neogit.setup {}
 
 -- options ------------------------------------------------------------
 opt.encoding = "utf-8" -- Set default encoding to UTF-8
