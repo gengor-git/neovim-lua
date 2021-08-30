@@ -87,4 +87,9 @@ opt.shiftwidth = 4 -- Size of an indent
 opt.smartindent = true -- Insert indents automatically
 opt.cursorline = true
 opt.clipboard = "unnamedplus"
+opt.hlsearch = true -- Highlight found searchresults
+opt.ignorecase = true
+opt.number = true
+opt.numberwidth = 5
+opt.scrolloff = 20
 
