@@ -4,7 +4,6 @@ local g = vim.g -- a table to access global variables
 local opt = vim.opt -- to set options
 local map = vim.api.nvim_set_keymap -- map keys easier
 
-
 -- Bootstrap Paq when needed ------------------------------------------
 local install_path = fn.stdpath("data") .. "/site/pack/paqs/start/paq-nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -25,7 +24,6 @@ require("paq") ({
     "ryanoasis/vim-devicons",
 
     "kyazdani42/nvim-tree.lua",
-    "kaicataldo/material.vim",
 
     "ixru/nvim-markdown", -- Markdown mode
 
@@ -43,13 +41,19 @@ require("paq") ({
 
 -- colorscheme --------------------------------------------------------
 cmd([[colorscheme tokyonight]]) -- Put your favorite colorscheme here
---cmd([[colorscheme material]]) -- Put your favorite colorscheme here
 
 -- basics -------------------------------------------------------------
 g.mapleader = " "
 map('n', '<Leader>w', ':write<CR>', {noremap = true}) -- quicker save
-map('n', '<C-t>', ':tabnew<CR>', {noremap = true})
+map('n', '<C-t>', ':tabnew<CR>', {noremap = true}) -- toggle between tabs
+map('n', '<Leader>b', ':bn<CR>', {noremap = true}) -- cycle through buffers
 map('n', '<Leader>t', ':tabnext<CR>', {noremap = true})
+map('n', '<Leader>d', ':bd<CR>', {noremap = true})
+
+map('n', '<C-h>', '<C-w>h', {noremap = true})
+map('n', '<C-j>', '<C-w>j', {noremap = true})
+map('n', '<C-k>', '<C-w>k', {noremap = true})
+map('n', '<C-l>', '<C-w>l', {noremap = true})
 
 -- lualine ------------------------------------------------------------
 require('lualine').setup({
@@ -59,10 +63,8 @@ require('lualine').setup({
     }
 })
 
-
 -- tabline ------------------------------------------------------------
-require('tabline').setup({
-})
+require('tabline').setup {}
 
 -- Nvim-Tree ----------------------------------------------------------
 --nnoremap <C-n> :NvimTreeToggle<CR>
@@ -74,12 +76,14 @@ map('n', '<leader>n', ':NvimTreeFindFile<CR>', {noremap = true})
 --g.nvim_tree_side = 'right'
 g.nvim_tree_width = '40'
 g.nvim_tree_quit_on_open = 1
-
+--g.nvim_tree_disable_keybindings = 1
 
 -- Neogit -------------------------------------------------------------
-
 local neogit = require('neogit')
 neogit.setup {}
+map('n', '<Leader>gs', ':Neogit<CR>', {noremap = true})
+
+-- writing ------------------------------------------------------------
 
 -- options ------------------------------------------------------------
 opt.encoding = "utf-8" -- Set default encoding to UTF-8
