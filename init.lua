@@ -29,6 +29,8 @@ require("paq") ({
 
     "nvim-lua/plenary.nvim", -- this is required for neogit
     "TimUntersberger/neogit", -- magit like extension for neovim
+
+    "kristijanhusak/orgmode.nvim",
   
 })
 
@@ -44,11 +46,11 @@ cmd([[colorscheme tokyonight]]) -- Put your favorite colorscheme here
 
 -- basics -------------------------------------------------------------
 g.mapleader = " "
-map('n', '<Leader>w', ':write<CR>', {noremap = true}) -- quicker save
+map('n', '<Leader>fs', ':write<CR>', {noremap = true}) -- quicker save
 map('n', '<C-t>', ':tabnew<CR>', {noremap = true}) -- toggle between tabs
-map('n', '<Leader>b', ':bn<CR>', {noremap = true}) -- cycle through buffers
+map('n', '<Leader>bn', ':bn<CR>', {noremap = true}) -- cycle through buffers
 map('n', '<Leader>t', ':tabnext<CR>', {noremap = true})
-map('n', '<Leader>d', ':bd<CR>', {noremap = true})
+map('n', '<Leader>bd', ':bd<CR>', {noremap = true})
 
 map('n', '<C-h>', '<C-w>h', {noremap = true})
 map('n', '<C-j>', '<C-w>j', {noremap = true})
@@ -84,6 +86,7 @@ neogit.setup {}
 map('n', '<Leader>gs', ':Neogit<CR>', {noremap = true})
 
 -- writing ------------------------------------------------------------
+require('orgmode').setup{}
 
 -- options ------------------------------------------------------------
 opt.encoding = "utf-8" -- Set default encoding to UTF-8
