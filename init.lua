@@ -48,6 +48,8 @@ cmd([[colorscheme tokyonight]]) -- Put your favorite colorscheme here
 -- basics -------------------------------------------------------------
 g.mapleader = " "
 map('n', '<Leader>w', ':write<CR>', {noremap = true}) -- quicker save
+map('n', '<C-t>', ':tabnew<CR>', {noremap = true})
+map('n', '<Leader>t', ':tabnext<CR>', {noremap = true})
 
 -- lualine ------------------------------------------------------------
 require('lualine').setup({
@@ -69,7 +71,7 @@ require('tabline').setup({
 map('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap = true})
 map('n', '<leader>r', ':NvimTreeRefresh<CR>', {noremap = true})
 map('n', '<leader>n', ':NvimTreeFindFile<CR>', {noremap = true})
-g.nvim_tree_side = 'right'
+--g.nvim_tree_side = 'right'
 g.nvim_tree_width = '40'
 g.nvim_tree_quit_on_open = 1
 
