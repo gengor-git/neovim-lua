@@ -7,3 +7,5 @@ currently separately anyway.
 
 I typically use Neovim from within PowerShell inside Windows Terminal.
 
+![Neovim inside PowerShell](neovim-screenshot-ps.png)
+
