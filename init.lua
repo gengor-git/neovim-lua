@@ -10,11 +10,10 @@ if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({ "git", "clone", "--depth=1", "https://github.com/savq/paq-nvim.git", install_path })
 end
 
-
-
 -- Plugins ------------------------------------------------------------
 require("paq") ({
     "savq/paq-nvim",
+
     "hoob3rt/lualine.nvim",
     "kdheepak/tabline.nvim",
 
@@ -85,7 +84,7 @@ require('tabline').setup {}
 --map('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap = true})
 --map('n', '<leader>r', ':NvimTreeRefresh<CR>', {noremap = true})
 --map('n', '<leader>n', ':NvimTreeFindFile<CR>', {noremap = true})
-----g.nvim_tree_side = 'right'
+--g.nvim_tree_side = 'right'
 --g.nvim_tree_width = '40'
 --g.nvim_tree_quit_on_open = 0
 --g.nvim_tree_disable_keybindings = 1
@@ -108,7 +107,6 @@ vim.o.completeopt = "menuone,noselect"
 
 local luasnip = require'luasnip'
 
---require("luasnip/loaders/from_vscode").load({ paths = { "C:/Users/palm07/AppData/Local/nvim-data/site/pack/paqs/start/friendly-snippets/snippets/" }})
 require("luasnip/loaders/from_vscode").load()
 
 local cmp = require'cmp'
