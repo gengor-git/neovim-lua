@@ -10,6 +10,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({ "git", "clone", "--depth=1", "https://github.com/savq/paq-nvim.git", install_path })
 end
 
+
+
 -- Plugins ------------------------------------------------------------
 require("paq") ({
     "savq/paq-nvim",
@@ -23,18 +25,27 @@ require("paq") ({
     "kyazdani42/nvim-web-devicons",
     "ryanoasis/vim-devicons",
 
---    "kyazdani42/nvim-tree.lua",
+    --"kyazdani42/nvim-tree.lua", -- bugged
 
     "nvim-telescope/telescope.nvim",
---    "nvim-treesitter/nvim-treesitter",
+    --"nvim-treesitter/nvim-treesitter", -- has problems with missing cc or gcc
 
 --    "ixru/nvim-markdown", -- Markdown mode
+
+    "neovim/nvim-lspconfig", -- for setting up language servers
+    "hrsh7th/nvim-cmp", -- completion, requires sources
+    "hrsh7th/cmp-buffer", -- buffer completion source
+    "hrsh7th/cmp-nvim-lsp", -- lsp completion source
+    "saadparwaiz1/cmp_luasnip", -- lua snippets source
+    "hrsh7th/cmp-emoji", -- emoji source
+
+    "L3MON4D3/LuaSnip", -- snippet engine in lua
+    "rafamadriz/friendly-snippets", -- collection of snippets
 
     "nvim-lua/plenary.nvim", -- this is required for neogit
     "TimUntersberger/neogit", -- magit like extension for neovim
 
     "kristijanhusak/orgmode.nvim",
-  
 })
 
 -- gitsigns setup -----------------------------------------------------
@@ -72,13 +83,10 @@ require('lualine').setup({
 require('tabline').setup {}
 
 -- Nvim-Tree ----------------------------------------------------------
---nnoremap <C-n> :NvimTreeToggle<CR>
---nnoremap <leader>r :NvimTreeRefresh<CR>
---nnoremap <leader>n :NvimTreeFindFile<CR>
 --map('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap = true})
 --map('n', '<leader>r', ':NvimTreeRefresh<CR>', {noremap = true})
 --map('n', '<leader>n', ':NvimTreeFindFile<CR>', {noremap = true})
---g.nvim_tree_side = 'right'
+----g.nvim_tree_side = 'right'
 --g.nvim_tree_width = '40'
 --g.nvim_tree_quit_on_open = 0
 --g.nvim_tree_disable_keybindings = 1
@@ -95,20 +103,65 @@ map('n', '<Leader>fg', ':Telescope live_grep<CR>', {noremap = true})
 map('n', '<Leader>fb', ':Telescope buffers<CR>', {noremap = true})
 map('n', '<Leader>fh', ':Telescope help_tags<CR>', {noremap = true})
 
--- treesitter highlighting --------------------------------------------
---[[require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "javascript", "json", "lua", "php", "python", "scss", "yaml", "typescript", "rst" },
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    --disable = { "c", "rust" },  -- list of language that will be disabled
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-]]--
+-- More dev stuff -----------------------------------------------------
+-- completion stuff
+vim.o.completeopt = "menuone,noselect"
+
+local luasnip = require'luasnip'
+
+--require("luasnip/loaders/from_vscode").load({ paths = { "C:/Users/palm07/AppData/Local/nvim-data/site/pack/paqs/start/friendly-snippets/snippets/" }})
+require("luasnip/loaders/from_vscode").load()
+
+local cmp = require'cmp'
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
+    mapping = {
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm {
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        },
+        ['<Tab>'] = function(fallback)
+          if vim.fn.pumvisible() == 1 then
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+          elseif luasnip.expand_or_jumpable() then
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
+          else
+            fallback()
+          end
+        end,
+        ['<S-Tab>'] = function(fallback)
+          if vim.fn.pumvisible() == 1 then
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+          elseif luasnip.jumpable(-1) then
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+          else
+            fallback()
+          end
+        end,
+    },
+    sources = {
+        { name = 'nvim_lua' },
+        { name = 'buffer' },
+        { name = 'emoji' },
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = 'orgmode' },
+    }
+})
+
+-- LSP ----------------------------------------------------------------
+-- 🐍 python
+require'lspconfig'.pyright.setup{} -- npm i -g pyright; put binary in path
 
 -- writing ------------------------------------------------------------
 require('orgmode').setup{}
