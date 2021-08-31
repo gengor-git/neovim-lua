@@ -44,6 +44,8 @@ require("paq") ({
     "TimUntersberger/neogit", -- magit like extension for neovim
 
     "kristijanhusak/orgmode.nvim",
+
+    "blackCauldron7/surround.nvim",
 })
 
 -- gitsigns setup -----------------------------------------------------
@@ -159,6 +161,9 @@ cmp.setup({
 -- LSP ----------------------------------------------------------------
 -- 🐍 python
 require'lspconfig'.pyright.setup{} -- npm i -g pyright; put binary in path
+
+-- surround mode ------------------------------------------------------
+require "surround".setup {}
 
 -- writing ------------------------------------------------------------
 require('orgmode').setup{}
