@@ -181,4 +181,4 @@ opt.ignorecase = true
 opt.number = true
 opt.numberwidth = 5
 opt.scrolloff = 20
-
+opt.mouse = "a"
