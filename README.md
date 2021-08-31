@@ -9,3 +9,15 @@ I typically use Neovim from within PowerShell inside Windows Terminal.
 
 ![Neovim inside PowerShell](neovim-screenshot-ps.png)
 
+## Current features
+
+* Tabline
+* Statusline via Lualine
+* Themes: everfortest and tokyonight
+* devicon support
+* LSP basic config for python (pyright)
+* Completion via vim-cmp
+* Snippets via luasnip and snippet colletion
+* Neogit
+* Org-Mode
+
