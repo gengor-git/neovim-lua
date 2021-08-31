@@ -15,7 +15,6 @@ end
 -- Plugins ------------------------------------------------------------
 require("paq") ({
     "savq/paq-nvim",
-    "hrsh7th/nvim-compe",
     "hoob3rt/lualine.nvim",
     "kdheepak/tabline.nvim",
 
