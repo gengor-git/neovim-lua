@@ -43,9 +43,7 @@ require("paq") ({
     "nvim-lua/plenary.nvim", -- this is required for neogit
     "TimUntersberger/neogit", -- magit like extension for neovim
 
-    "kristijanhusak/orgmode.nvim",
-
-    "blackCauldron7/surround.nvim",
+    "ur4ltz/surround.nvim",
 })
 
 -- gitsigns setup -----------------------------------------------------
@@ -154,7 +152,6 @@ cmp.setup({
         { name = 'emoji' },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
-        { name = 'orgmode' },
     }
 })
 
@@ -164,9 +161,6 @@ require'lspconfig'.pyright.setup{} -- npm i -g pyright; put binary in path
 
 -- surround mode ------------------------------------------------------
 require "surround".setup {}
-
--- writing ------------------------------------------------------------
-require('orgmode').setup{}
 
 -- options ------------------------------------------------------------
 opt.encoding = "utf-8" -- Set default encoding to UTF-8
