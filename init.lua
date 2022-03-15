@@ -44,6 +44,8 @@ require("paq") ({
     "TimUntersberger/neogit", -- magit like extension for neovim
 
     "ur4ltz/surround.nvim",
+
+    "norcalli/nvim-colorizer.lua",
 })
 
 -- gitsigns setup -----------------------------------------------------
@@ -51,6 +53,11 @@ require("paq") ({
 numhl = true,
 signcolumn = false,
 })--]]
+
+
+-- colorizer --
+opt.termguicolors = true
+require('colorizer').setup()
 
 
 -- colorscheme --------------------------------------------------------
@@ -176,3 +183,5 @@ opt.number = true
 opt.numberwidth = 5
 opt.scrolloff = 20
 opt.mouse = "a"
+opt.termguicolors = true
+
